@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arthur Ng’etich">
+
+<title>Workshop Exercise: Emissions Data - Table, Map, and Chart</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="text/javascript">
+window.PlotlyConfig = {MathJaxConfig: 'local'};
+if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+if (typeof require !== 'undefined') {
+require.undef("plotly");
+requirejs.config({
+    paths: {
+        'plotly': ['https://cdn.plot.ly/plotly-2.35.2.min']
+    }
+});
+require(['plotly'], function(Plotly) {
+    window._Plotly = Plotly;
+});
+}
+</script>
+
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Workshop Exercise: Emissions Data - Table, Map, and Chart</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Arthur Ng’etich </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In this exercise, you will work with a CO2 emissions dataset downloaded from Gapminder and produce a report with three tabs: a data table, a line chart, and a choropleth map.</p>
+<p>The goal is to roughly replicate the <a href="https://ourworldindata.org/grapher/consumption-co2-emissions?tab=table&amp;time=2000..2022">Our World in Data visualization page on consumption-based CO<sub>2</sub> emissions</a>.</p>
+<p>Be sure to view that page to get an idea of the final product.</p>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<ul>
+<li><p>You should have forked and cloned this repository to your local machine.</p></li>
+<li><p>Now, create and select a virtual environment in VSCode.</p></li>
+<li><p>Install the following packages:</p>
+<ul>
+<li>pandas</li>
+<li>plotly</li>
+<li>itables</li>
+<li>ipykernel</li>
+<li>jupyter</li>
+<li>country_converter</li>
+</ul></li>
+<li><p>Download the data from <a href="https://www.gapminder.org/data/">Gapminder</a> by selecting: <em>Environment &gt; Emissions &gt; CO2 Total emissions</em>, then downloading the CSV file into a <code>data</code> folder in your repository.</p></li>
+</ul>
+</section>
+<section id="data-import" class="level1">
+<h1>Data Import</h1>
+<p>Run the following code to import the necessary libraries:</p>
+<div id="d5fd2d4e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itables <span class="im">import</span> show</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> country_converter <span class="im">as</span> coco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load in your dataset from gapminder below. View it in your data viewer to get an idea of the structure.</p>
+<div id="3a6eddb5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>emissions <span class="op">=</span> pd.read_csv(<span class="st">"data/co2_cons.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="initial-cleaning" class="level1">
+<h1>Initial Cleaning</h1>
+<p>In this dataset, some values are given in thousands, with a “k” used to represent the thousands. This will cause problems when we try to make these columns numeric. So we need to clean this. We’ll do this for you, but pay close attention as you might need it for your final project.</p>
+<p>First, let’s see the issue:</p>
+<div id="bd65328f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>emissions.query(<span class="st">"country == 'China'"</span>)[[<span class="st">"country"</span>,  <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"2022"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">2020</th>
+<th data-quarto-table-cell-role="th">2021</th>
+<th data-quarto-table-cell-role="th">2022</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>China</td>
+<td>9980.0</td>
+<td>10.6k</td>
+<td>10.5k</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice the letter “k” at the end of “10.6k” as an example.</p>
+<p>We can remove the “k” and multiply those values by 1000 with the following code:</p>
+<div id="143074f9" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"2021"</span>, <span class="st">"2022"</span>]:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    has_k <span class="op">=</span> emissions[col].<span class="bu">str</span>.contains(<span class="st">"k"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> emissions[col].<span class="bu">str</span>.replace(<span class="st">"k"</span>, <span class="st">""</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    emissions[col] <span class="op">=</span> np.where(has_k, values.astype(<span class="bu">float</span>) <span class="op">*</span> <span class="dv">1000</span>, values.astype(<span class="bu">float</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And check that it worked:</p>
+<div id="0cba5d36" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>emissions.query(<span class="st">"country == 'China'"</span>)[[<span class="st">"country"</span>,  <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"2022"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">2020</th>
+<th data-quarto-table-cell-role="th">2021</th>
+<th data-quarto-table-cell-role="th">2022</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>China</td>
+<td>9980.0</td>
+<td>10600.0</td>
+<td>10500.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="table-section" class="level1">
+<h1>Table Section</h1>
+<p>Our goal is to create a table showing emissions for a few selected years and calculate absolute and relative changes.</p>
+<ol type="1">
+<li>Subset the data to include <code>Country</code>, <code>2000</code>, and <code>2022</code> columns only.</li>
+<li>Calculate an “Absolute Change” column (<code>emissions_2022 - emissions_2000</code>).</li>
+<li>Calculate a “Relative Change” column (<code>(emissions_2022 - emissions_2000) / emissions_2000</code>).</li>
+</ol>
+<div id="3d8cd46d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data to include `country`, `2000`, and `2022` columns only.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>table_df <span class="op">=</span> emissions[[<span class="st">"country"</span>, <span class="st">"2000"</span>, <span class="st">"2022"</span>]].copy()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate absolute change as the difference between 2022 and 2000</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>table_df[<span class="st">"Absolute Change"</span>] <span class="op">=</span> table_df[<span class="st">"2022"</span>] <span class="op">-</span> table_df[<span class="st">"2000"</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate relative change as the absolute change divided by the 2000 emissions, then multiplied by 100</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>table_df[<span class="st">"Relative Change"</span>] <span class="op">=</span> (table_df[<span class="st">"Absolute Change"</span>] <span class="op">/</span> table_df[<span class="st">"2000"</span>]) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Round to 0 decimal places, and add a % sign to the relative change</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>table_df[<span class="st">"Relative Change"</span>] <span class="op">=</span> table_df[<span class="st">"Relative Change"</span>].<span class="bu">round</span>(<span class="dv">0</span>).astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">"%"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can display this as an interactive table with itables:</p>
+<div id="e3c2ba5b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>show(table_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table id="itables_1aa3a541_de58_4ea8_aecd_928dffa0ba6a" class="display nowrap" data-quarto-disable-processing="true" style="table-layout:auto;width:auto;margin:auto;caption-side:bottom">
+<thead>
+    <tr style="text-align: right;">
+      
+      <th>country</th>
+      <th>2000</th>
+      <th>2022</th>
+      <th>Absolute Change</th>
+      <th>Relative Change</th>
+    </tr>
+  </thead><tbody><tr>
+<td style="vertical-align:middle; text-align:left">
+<a href="https://mwouts.github.io/itables/"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="64" viewbox="0 0 500 400" style="font-family: 'Droid Sans', sans-serif;">
+    <g style="fill:#d9d7fc">
+        <path d="M100,400H500V357H100Z"></path>
+        <path d="M100,300H400V257H100Z"></path>
+        <path d="M0,200H400V157H0Z"></path>
+        <path d="M100,100H500V57H100Z"></path>
+        <path d="M100,350H500V307H100Z"></path>
+        <path d="M100,250H400V207H100Z"></path>
+        <path d="M0,150H400V107H0Z"></path>
+        <path d="M100,50H500V7H100Z"></path>
+    </g>
+    <g style="fill:#1a1366;stroke:#1a1366;">
+   <rect x="100" y="7" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="5s" repeatcount="indefinite"></animate>
+      <animate attributename="x" values="100;100;500" dur="5s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="0" y="107" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="3.5s" repeatcount="indefinite"></animate>
+    <animate attributename="x" values="0;0;400" dur="3.5s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="100" y="207" width="300" height="43">
+    <animate attributename="width" values="0;300;0" dur="3s" repeatcount="indefinite"></animate>
+    <animate attributename="x" values="100;100;400" dur="3s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="100" y="307" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="4s" repeatcount="indefinite"></animate>
+      <animate attributename="x" values="100;100;500" dur="4s" repeatcount="indefinite"></animate>
+  </rect>
+        <g style="fill:transparent;stroke-width:8; stroke-linejoin:round" rx="5">
+            <g transform="translate(45 50) rotate(-45)">
+                <circle r="33" cx="0" cy="0"></circle>
+                <rect x="-8" y="32" width="16" height="30"></rect>
+            </g>
+
+            <g transform="translate(450 152)">
+                <polyline points="-15,-20 -35,-20 -35,40 25,40 25,20"></polyline>
+                <rect x="-15" y="-40" width="60" height="60"></rect>
+            </g>
+
+            <g transform="translate(50 352)">
+                <polygon points="-35,-5 0,-40 35,-5"></polygon>
+                <polygon points="-35,10 0,45 35,10"></polygon>
+            </g>
+
+            <g transform="translate(75 250)">
+                <polyline points="-30,30 -60,0 -30,-30"></polyline>
+                <polyline points="0,30 -30,0 0,-30"></polyline>
+            </g>
+
+            <g transform="translate(425 250) rotate(180)">
+                <polyline points="-30,30 -60,0 -30,-30"></polyline>
+                <polyline points="0,30 -30,0 0,-30"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
+</a>
+Loading ITables v2.2.4 from the internet...
+(need <a href="https://mwouts.github.io/itables/troubleshooting.html">help</a>?)</td>
+</tr></tbody>
+</table>
+<link href="https://www.unpkg.com/dt_for_itables@2.0.13/dt_bundle.css" rel="stylesheet">
+<script type="module">
+    import {DataTable, jQuery as $} from 'https://www.unpkg.com/dt_for_itables@2.0.13/dt_bundle.js';
+
+    document.querySelectorAll("#itables_1aa3a541_de58_4ea8_aecd_928dffa0ba6a:not(.dataTable)").forEach(table => {
+        if (!(table instanceof HTMLTableElement))
+            return;
+
+        // Define the table data
+        const data = [["Afghanistan", 0.723, 11.7, 10.977, "1518.0%"], ["Angola", 9.52, 43.6, 34.08, "358.0%"], ["Albania", 4.07, 5.98, 1.91, "47.0%"], ["Andorra", 0.53, 0.472, -0.058, "-11.0%"], ["UAE", 92.6, 199.0, 106.4, "115.0%"], ["Argentina", 140.0, 175.0, 35.0, "25.0%"], ["Armenia", 4.23, 7.51, 3.28, "78.0%"], ["Antigua and Barbuda", 0.34, 0.557, 0.217, "64.0%"], ["Australia", 289.0, 365.0, 76.0, "26.0%"], ["Austria", 91.3, 82.2, -9.1, "-10.0%"], ["Azerbaijan", 23.5, 39.8, 16.3, "69.0%"], ["Burundi", 0.268, 0.658, 0.39, "146.0%"], ["Belgium", 188.0, 197.0, 9.0, "5.0%"], ["Benin", 2.4, 9.48, 7.08, "295.0%"], ["Burkina Faso", 1.4, 6.94, 5.54, "396.0%"], ["Bangladesh", 25.4, 145.0, 119.6, "471.0%"], ["Bulgaria", 42.2, 39.5, -2.7, "-6.0%"], ["Bahrain", 11.0, 23.6, 12.6, "115.0%"], ["Bahamas", 2.13, 1.95, -0.18, "-8.0%"], ["Bosnia and Herzegovina", 15.3, 20.9, 5.6, "37.0%"], ["Belarus", 41.7, 60.3, 18.6, "45.0%"], ["Belize", 0.385, 0.614, 0.229, "59.0%"], ["Bolivia", 8.73, 24.3, 15.57, "178.0%"], ["Brazil", 347.0, 454.0, 107.0, "31.0%"], ["Barbados", 1.12, 1.27, 0.15, "13.0%"], ["Brunei", 3.1, 11.0, 7.9, "255.0%"], ["Bhutan", 0.38, 1.41, 1.03, "271.0%"], ["Botswana", 3.28, 13.4, 10.12, "309.0%"], ["Central African Republic", 0.276, 0.397, 0.121, "44.0%"], ["Canada", 577.0, 507.0, -70.0, "-12.0%"], ["Switzerland", 88.4, 102.0, 13.6, "15.0%"], ["Chile", 58.7, 89.1, 30.4, "52.0%"], ["China", 3240.0, 10500.0, 7260.0, "224.0%"], ["Cote d'Ivoire", 6.72, 16.8, 10.08, "150.0%"], ["Cameroon", 4.5, 11.4, 6.9, "153.0%"], ["Congo, Dem. Rep.", 0.922, 2.62, 1.698, "184.0%"], ["Congo, Rep.", 1.05, 4.02, 2.97, "283.0%"], ["Colombia", 54.3, 124.0, 69.7, "128.0%"], ["Comoros", 0.102, 0.24, 0.138, "135.0%"], ["Cape Verde", 0.232, 0.749, 0.517, "223.0%"], ["Costa Rica", 7.96, 12.3, 4.34, "55.0%"], ["Cuba", 25.9, 28.6, 2.7, "10.0%"], ["Cyprus", 7.56, 7.04, -0.52, "-7.0%"], ["Czech Republic", 120.0, 103.0, -17.0, "-14.0%"], ["Germany", 1080.0, 775.0, -305.0, "-28.0%"], ["Djibouti", 0.379, 0.823, 0.444, "117.0%"], ["Dominica", 0.101, 0.187, 0.086, "85.0%"], ["Denmark", 65.2, 45.2, -20.0, "-31.0%"], ["Dominican Republic", 12.2, 34.9, 22.7, "186.0%"], ["Algeria", 86.8, 174.0, 87.2, "100.0%"], ["Ecuador", 19.5, 48.6, 29.1, "149.0%"], ["Egypt", 136.0, 266.0, 130.0, "96.0%"], ["Eritrea", 0.631, 0.863, 0.232, "37.0%"], ["Spain", 330.0, 269.0, -61.0, "-18.0%"], ["Estonia", 20.2, 13.8, -6.4, "-32.0%"], ["Ethiopia", 3.73, 23.2, 19.47, "522.0%"], ["Finland", 78.6, 48.5, -30.1, "-38.0%"], ["Fiji", 0.856, 2.42, 1.564, "183.0%"], ["France", 514.0, 392.0, -122.0, "-24.0%"], ["Micronesia, Fed. Sts.", 0.13, 0.165, 0.035, "27.0%"], ["Gabon", 4.84, 6.6, 1.76, "36.0%"], ["UK", 743.0, 468.0, -275.0, "-37.0%"], ["Georgia", 6.08, 14.1, 8.02, "132.0%"], ["Ghana", 7.93, 25.9, 17.97, "227.0%"], ["Guinea", 1.33, 6.54, 5.21, "392.0%"], ["Gambia", 0.3, 0.792, 0.492, "164.0%"], ["Guinea-Bissau", 0.15, 0.417, 0.267, "178.0%"], ["Equatorial Guinea", 0.518, 7.96, 7.442, "1437.0%"], ["Greece", 104.0, 54.8, -49.2, "-47.0%"], ["Grenada", 0.199, 0.308, 0.109, "55.0%"], ["Guatemala", 23.3, 23.9, 0.6, "3.0%"], ["Guyana", 1.64, 2.55, 0.91, "55.0%"], ["Hong Kong, China", 83.9, 76.6, -7.3, "-9.0%"], ["Honduras", 3.93, 9.14, 5.21, "133.0%"], ["Croatia", 21.5, 24.0, 2.5, "12.0%"], ["Haiti", 1.33, 3.16, 1.83, "138.0%"], ["Hungary", 72.7, 63.9, -8.8, "-12.0%"], ["Indonesia", 235.0, 650.0, 415.0, "177.0%"], ["India", 901.0, 2660.0, 1759.0, "195.0%"], ["Ireland", 54.1, 43.1, -11.0, "-20.0%"], ["Iran", 292.0, 679.0, 387.0, "133.0%"], ["Iraq", 75.2, 256.0, 180.8, "240.0%"], ["Iceland", 2.95, 3.73, 0.78, "26.0%"], ["Israel", 68.3, 77.7, 9.4, "14.0%"], ["Italy", 566.0, 409.0, -157.0, "-28.0%"], ["Jamaica", 6.58, 6.88, 0.3, "5.0%"], ["Jordan", 17.3, 32.7, 15.4, "89.0%"], ["Japan", 1540.0, 1240.0, -300.0, "-19.0%"], ["Kazakhstan", 105.0, 187.0, 82.0, "78.0%"], ["Kenya", 12.2, 30.4, 18.2, "149.0%"], ["Kyrgyz Republic", 6.13, 18.6, 12.47, "203.0%"], ["Cambodia", 4.69, 42.8, 38.11, "813.0%"], ["Kiribati", 0.035, 0.085, 0.05, "143.0%"], ["St. Kitts and Nevis", 0.178, 0.222, 0.044, "25.0%"], ["South Korea", 480.0, 701.0, 221.0, "46.0%"], ["Kuwait", 32.8, 103.0, 70.2, "214.0%"], ["Lao", 2.37, 24.9, 22.53, "951.0%"], ["Lebanon", 17.4, 21.5, 4.1, "24.0%"], ["Liberia", 0.429, 1.88, 1.451, "338.0%"], ["Libya", 45.1, 60.2, 15.1, "33.0%"], ["St. Lucia", 0.355, 0.42, 0.065, "18.0%"], ["Liechtenstein", 0.216, 0.153, -0.063, "-29.0%"], ["Sri Lanka", 18.4, 38.4, 20.0, "109.0%"], ["Lesotho", 1.82, 3.18, 1.36, "75.0%"], ["Lithuania", 20.1, 19.8, -0.3, "-1.0%"], ["Luxembourg", 8.33, 8.22, -0.11, "-1.0%"], ["Latvia", 14.6, 14.0, -0.6, "-4.0%"], ["Morocco", 37.8, 74.9, 37.1, "98.0%"], ["Moldova", 3.62, 4.1, 0.48, "13.0%"], ["Madagascar", 2.61, 6.2, 3.59, "138.0%"], ["Maldives", 0.456, 1.73, 1.274, "279.0%"], ["Mexico", 440.0, 464.0, 24.0, "5.0%"], ["Marshall Islands", 0.106, 0.116, 0.01, "9.0%"], ["North Macedonia", 12.1, 7.34, -4.76, "-39.0%"], ["Mali", 0.855, 4.61, 3.755, "439.0%"], ["Malta", 4.58, 9.25, 4.67, "102.0%"], ["Myanmar", 9.8, 29.7, 19.9, "203.0%"], ["Montenegro", 1.57, 1.99, 0.42, "27.0%"], ["Mongolia", 7.01, 48.4, 41.39, "590.0%"], ["Mozambique", 4.54, 15.0, 10.46, "230.0%"], ["Mauritania", 1.14, 3.13, 1.99, "175.0%"], ["Mauritius", 4.95, 6.34, 1.39, "28.0%"], ["Malawi", 0.816, 2.83, 2.014, "247.0%"], ["Malaysia", 113.0, 254.0, 141.0, "125.0%"], ["Namibia", 1.57, 10.2, 8.63, "550.0%"], ["Niger", 0.711, 2.96, 2.249, "316.0%"], ["Nigeria", 47.2, 151.0, 103.8, "220.0%"], ["Nicaragua", 4.4, 6.56, 2.16, "49.0%"], ["Netherlands", 129.0, 154.0, 25.0, "19.0%"], ["Norway", 42.5, 47.4, 4.9, "12.0%"], ["Nepal", 2.67, 28.2, 25.53, "956.0%"], ["Nauru", 0.085, 0.065, -0.02, "-24.0%"], ["New Zealand", 31.9, 38.9, 7.0, "22.0%"], ["Oman", 19.3, 68.2, 48.9, "253.0%"], ["Pakistan", 109.0, 259.0, 150.0, "138.0%"], ["Panama", 4.82, 17.7, 12.88, "267.0%"], ["Peru", 32.2, 68.3, 36.1, "112.0%"], ["Philippines", 90.4, 186.0, 95.6, "106.0%"], ["Palau", 0.216, 0.257, 0.041, "19.0%"], ["Papua New Guinea", 2.51, 10.0, 7.49, "298.0%"], ["Poland", 299.0, 319.0, 20.0, "7.0%"], ["North Korea", 70.5, 34.5, -36.0, "-51.0%"], ["Portugal", 110.0, 47.3, -62.7, "-57.0%"], ["Paraguay", 5.39, 13.6, 8.21, "152.0%"], ["Palestine", 1.62, 3.85, 2.23, "138.0%"], ["Qatar", 15.5, 73.5, 58.0, "374.0%"], ["Romania", 89.0, 85.8, -3.2, "-4.0%"], ["Russia", 990.0, 1440.0, 450.0, "45.0%"], ["Rwanda", 0.682, 2.46, 1.778, "261.0%"], ["Saudi Arabia", 204.0, 671.0, 467.0, "229.0%"], ["Sudan", 4.88, 25.8, 20.92, "429.0%"], ["Senegal", 4.62, 17.6, 12.98, "281.0%"], ["Singapore", 125.0, 152.0, 27.0, "22.0%"], ["Solomon Islands", 0.16, 0.213, 0.053, "33.0%"], ["Sierra Leone", 0.389, 1.33, 0.941, "242.0%"], ["El Salvador", 8.25, 9.33, 1.08, "13.0%"], ["Somalia", 0.472, 0.896, 0.424, "90.0%"], ["Serbia", 37.6, 36.9, -0.7, "-2.0%"], ["South Sudan", 0.455, 2.03, 1.575, "346.0%"], ["Sao Tome and Principe", 0.048, 0.146, 0.098, "204.0%"], ["Suriname", 2.23, 2.1, -0.13, "-6.0%"], ["Slovak Republic", 46.0, 41.6, -4.4, "-10.0%"], ["Slovenia", 19.0, 17.9, -1.1, "-6.0%"], ["Sweden", 85.3, 62.8, -22.5, "-26.0%"], ["Eswatini", 1.22, 1.39, 0.17, "14.0%"], ["Seychelles", 0.565, 0.79, 0.225, "40.0%"], ["Syria", 50.2, 41.0, -9.2, "-18.0%"], ["Chad", 0.482, 1.27, 0.788, "163.0%"], ["Togo", 0.96, 8.02, 7.06, "735.0%"], ["Thailand", 153.0, 281.0, 128.0, "84.0%"], ["Tajikistan", 5.38, 14.6, 9.22, "171.0%"], ["Turkmenistan", 37.9, 99.9, 62.0, "164.0%"], ["Timor-Leste", 0.146, 0.618, 0.472, "323.0%"], ["Tonga", 0.1, 0.152, 0.052, "52.0%"], ["Trinidad and Tobago", 10.1, 27.1, 17.0, "168.0%"], ["Tunisia", 14.1, 27.9, 13.8, "98.0%"], ["Turkey", 251.0, 422.0, 171.0, "68.0%"], ["Tuvalu", 0.008, 0.012, 0.004, "50.0%"], ["Taiwan", 276.0, 299.0, 23.0, "8.0%"], ["Tanzania", 4.91, 20.3, 15.39, "313.0%"], ["Uganda", 2.73, 8.63, 5.9, "216.0%"], ["Ukraine", 220.0, 173.0, -47.0, "-21.0%"], ["Uruguay", 7.91, 11.0, 3.09, "39.0%"], ["USA", 6210.0, 5560.0, -650.0, "-10.0%"], ["Uzbekistan", 122.0, 97.1, -24.9, "-20.0%"], ["St. Vincent and the Grenadines", 0.155, 0.213, 0.058, "37.0%"], ["Venezuela", 76.3, 19.0, -57.3, "-75.0%"], ["Vietnam", 36.9, 213.0, 176.1, "477.0%"], ["Vanuatu", 0.088, 0.187, 0.099, "113.0%"], ["Samoa", 0.151, 0.318, 0.167, "111.0%"], ["Yemen", 15.5, 13.3, -2.2, "-14.0%"], ["South Africa", 273.0, 310.0, 37.0, "14.0%"], ["Zambia", 3.88, 8.49, 4.61, "119.0%"], ["Zimbabwe", 12.2, 13.1, 0.9, "7.0%"]];
+
+        // Define the dt_args
+        let dt_args = {"layout": {"topStart": "pageLength", "topEnd": "search", "bottomStart": "info", "bottomEnd": "paging"}, "order": [], "warn_on_selected_rows_not_rendered": true};
+        dt_args["data"] = data;
+
+        
+        new DataTable(table, dt_args);
+    });
+</script>
+</div>
+</div>
+</section>
+<section id="chart-section" class="level1">
+<h1>Chart Section</h1>
+<p>Our goal is to create a line chart from 1990 to 2022 for a few selected countries.</p>
+<ol type="1">
+<li>Melt the data so that years become rows.</li>
+<li>Filter from 1990 to 2022 only.</li>
+<li>Choose 5 countries of your choice.</li>
+<li>Create a line chart with Plotly Express.</li>
+</ol>
+<div id="83a93a96" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melt the dataset. Your id_vars should be "country", your var_name should be "year" and your value_name should be "emissions".</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>emissions_long <span class="op">=</span> emissions.melt(id_vars<span class="op">=</span><span class="st">"country"</span>, var_name<span class="op">=</span><span class="st">"year"</span>, value_name<span class="op">=</span><span class="st">"emissions"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert year to numeric using pd.to_numeric</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>emissions_long[<span class="st">"year"</span>] <span class="op">=</span> pd.to_numeric(emissions_long[<span class="st">"year"</span>], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert emissions to numeric using pd.to_numeric</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>emissions_long[<span class="st">"emissions"</span>] <span class="op">=</span> pd.to_numeric(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    emissions_long[<span class="st">"emissions"</span>], errors<span class="op">=</span><span class="st">"coerce"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Query for years between 1990 and 2022 (that is 1990, 1991, ..., 2022)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>emissions_long_1990_2022 <span class="op">=</span> emissions_long.query(<span class="st">"1990 &lt;= year &lt;= 2022"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Query for 5 countries (adjust these to any countries you like)</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>countries_of_interest <span class="op">=</span> [<span class="st">"Kenya"</span>, <span class="st">"Malaysia"</span>, <span class="st">"France"</span>, <span class="st">"Brazil"</span>, <span class="st">"Australia"</span>]</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>emissions_long_1990_2022 <span class="op">=</span> emissions_long_1990_2022[</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    emissions_long_1990_2022[<span class="st">"country"</span>].isin(countries_of_interest)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create line chart. Year should be on the x-axis, emissions on the y-axis, and color should be by country.</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>fig_chart <span class="op">=</span> px.line(</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    emissions_long_1990_2022,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"year"</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"emissions"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"country"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"CO2 Emissions (1990-2022) for Selected Countries"</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"year"</span>: <span class="st">"Year"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"emissions"</span>: <span class="st">"Emissions (metric tons)"</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"country"</span>: <span class="st">"Country"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>fig_chart.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="232f3246-ee3a-42fc-a4ff-fd5eecad26d1" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("232f3246-ee3a-42fc-a4ff-fd5eecad26d1")) {                    Plotly.newPlot(                        "232f3246-ee3a-42fc-a4ff-fd5eecad26d1",                        [{"hovertemplate":"Country=Australia\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Australia","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Australia","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[242.0,243.0,245.0,246.0,254.0,260.0,266.0,274.0,293.0,294.0,289.0,297.0,316.0,333.0,343.0,342.0,354.0,366.0,362.0,393.0,394.0,392.0,400.0,378.0,379.0,380.0,370.0,376.0,363.0,361.0,353.0,354.0,365.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Brazil\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Brazil","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Brazil","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[244.0,251.0,253.0,261.0,274.0,296.0,320.0,340.0,347.0,331.0,347.0,340.0,329.0,322.0,334.0,348.0,357.0,392.0,442.0,412.0,484.0,518.0,552.0,589.0,610.0,546.0,485.0,496.0,475.0,475.0,423.0,443.0,454.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=France\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"France","line":{"color":"#00cc96","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"France","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[490.0,502.0,542.0,501.0,489.0,498.0,499.0,485.0,505.0,507.0,514.0,514.0,508.0,518.0,539.0,548.0,548.0,548.0,542.0,502.0,501.0,498.0,478.0,465.0,434.0,422.0,429.0,427.0,425.0,413.0,373.0,396.0,392.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Kenya\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Kenya","line":{"color":"#ab63fa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Kenya","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[8.01,7.19,8.31,8.65,8.98,10.2,9.28,9.29,12.9,11.4,12.2,12.2,10.3,9.3,9.96,11.4,13.0,14.0,14.8,16.9,16.7,19.1,20.1,23.0,27.2,27.0,26.8,25.5,26.9,27.7,26.8,29.2,30.4],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Malaysia\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Malaysia","line":{"color":"#FFA15A","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Malaysia","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[65.2,72.0,80.5,86.1,87.5,99.0,101.0,112.0,79.0,94.2,113.0,119.0,125.0,127.0,134.0,142.0,141.0,151.0,168.0,158.0,184.0,193.0,210.0,239.0,239.0,227.0,231.0,228.0,248.0,249.0,242.0,247.0,254.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Year"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Emissions (metric tons)"}},"legend":{"title":{"text":"Country"},"tracegroupgap":0},"title":{"text":"CO2 Emissions (1990-2022) for Selected Countries"}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('232f3246-ee3a-42fc-a4ff-fd5eecad26d1');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="mapping-section" class="level1">
+<h1>Mapping Section</h1>
+<p>This part is done for you.</p>
+<p><strong>Goal:</strong> Create a choropleth map showing global emissions from 1990 to 2022.<br>
+This will be animated by year.</p>
+<ol type="1">
+<li>Ensure each country has a 3-letter ISO code. We’ll use <code>country_converter</code> for that.</li>
+<li>Create a map with <code>px.choropleth</code> and use <code>animation_frame</code> to show changes over time.</li>
+</ol>
+<div id="f0e5f744" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert country names to ISO3 codes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>emissions_long_1990_2022[<span class="st">"country_code"</span>] <span class="op">=</span> coco.convert(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    emissions_long_1990_2022[<span class="st">"country"</span>], to<span class="op">=</span><span class="st">"ISO3"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>fig_map <span class="op">=</span> px.choropleth(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    emissions_long_1990_2022,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    locations<span class="op">=</span><span class="st">"country_code"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"emissions"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">"country"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    animation_frame<span class="op">=</span><span class="st">"year"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Global CO2 Emissions (1990-2022)"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fig_map.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="5a5abe8e-e68f-47e3-b7f1-ab11afb6680e" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5a5abe8e-e68f-47e3-b7f1-ab11afb6680e")) {                    Plotly.newPlot(                        "5a5abe8e-e68f-47e3-b7f1-ab11afb6680e",                        [{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1990\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[242.0,244.0,490.0,8.01,65.2],"type":"choropleth"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"geo":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"center":{}},"coloraxis":{"colorbar":{"title":{"text":"emissions"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"title":{"text":"Global CO2 Emissions (1990-2022)"},"updatemenus":[{"buttons":[{"args":[null,{"frame":{"duration":500,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":500,"easing":"linear"}}],"label":"&#9654;","method":"animate"},{"args":[[null],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"&#9724;","method":"animate"}],"direction":"left","pad":{"r":10,"t":70},"showactive":false,"type":"buttons","x":0.1,"xanchor":"right","y":0,"yanchor":"top"}],"sliders":[{"active":0,"currentvalue":{"prefix":"year="},"len":0.9,"pad":{"b":10,"t":60},"steps":[{"args":[["1990"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1990","method":"animate"},{"args":[["1991"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1991","method":"animate"},{"args":[["1992"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1992","method":"animate"},{"args":[["1993"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1993","method":"animate"},{"args":[["1994"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1994","method":"animate"},{"args":[["1995"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1995","method":"animate"},{"args":[["1996"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1996","method":"animate"},{"args":[["1997"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1997","method":"animate"},{"args":[["1998"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1998","method":"animate"},{"args":[["1999"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1999","method":"animate"},{"args":[["2000"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2000","method":"animate"},{"args":[["2001"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2001","method":"animate"},{"args":[["2002"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2002","method":"animate"},{"args":[["2003"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2003","method":"animate"},{"args":[["2004"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2004","method":"animate"},{"args":[["2005"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2005","method":"animate"},{"args":[["2006"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2006","method":"animate"},{"args":[["2007"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2007","method":"animate"},{"args":[["2008"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2008","method":"animate"},{"args":[["2009"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2009","method":"animate"},{"args":[["2010"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2010","method":"animate"},{"args":[["2011"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2011","method":"animate"},{"args":[["2012"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2012","method":"animate"},{"args":[["2013"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2013","method":"animate"},{"args":[["2014"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2014","method":"animate"},{"args":[["2015"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2015","method":"animate"},{"args":[["2016"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2016","method":"animate"},{"args":[["2017"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2017","method":"animate"},{"args":[["2018"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2018","method":"animate"},{"args":[["2019"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2019","method":"animate"},{"args":[["2020"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2020","method":"animate"},{"args":[["2021"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2021","method":"animate"},{"args":[["2022"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2022","method":"animate"}],"x":0.1,"xanchor":"left","y":0,"yanchor":"top"}]},                        {"responsive": true}                    ).then(function(){
+                            Plotly.addFrames('5a5abe8e-e68f-47e3-b7f1-ab11afb6680e', [{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1990\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[242.0,244.0,490.0,8.01,65.2],"type":"choropleth"}],"name":"1990"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1991\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[243.0,251.0,502.0,7.19,72.0],"type":"choropleth"}],"name":"1991"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1992\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[245.0,253.0,542.0,8.31,80.5],"type":"choropleth"}],"name":"1992"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1993\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[246.0,261.0,501.0,8.65,86.1],"type":"choropleth"}],"name":"1993"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1994\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[254.0,274.0,489.0,8.98,87.5],"type":"choropleth"}],"name":"1994"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1995\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[260.0,296.0,498.0,10.2,99.0],"type":"choropleth"}],"name":"1995"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1996\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[266.0,320.0,499.0,9.28,101.0],"type":"choropleth"}],"name":"1996"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1997\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[274.0,340.0,485.0,9.29,112.0],"type":"choropleth"}],"name":"1997"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1998\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[293.0,347.0,505.0,12.9,79.0],"type":"choropleth"}],"name":"1998"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1999\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[294.0,331.0,507.0,11.4,94.2],"type":"choropleth"}],"name":"1999"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2000\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[289.0,347.0,514.0,12.2,113.0],"type":"choropleth"}],"name":"2000"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2001\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[297.0,340.0,514.0,12.2,119.0],"type":"choropleth"}],"name":"2001"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2002\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[316.0,329.0,508.0,10.3,125.0],"type":"choropleth"}],"name":"2002"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2003\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[333.0,322.0,518.0,9.3,127.0],"type":"choropleth"}],"name":"2003"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2004\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[343.0,334.0,539.0,9.96,134.0],"type":"choropleth"}],"name":"2004"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2005\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[342.0,348.0,548.0,11.4,142.0],"type":"choropleth"}],"name":"2005"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2006\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[354.0,357.0,548.0,13.0,141.0],"type":"choropleth"}],"name":"2006"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2007\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[366.0,392.0,548.0,14.0,151.0],"type":"choropleth"}],"name":"2007"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2008\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[362.0,442.0,542.0,14.8,168.0],"type":"choropleth"}],"name":"2008"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2009\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[393.0,412.0,502.0,16.9,158.0],"type":"choropleth"}],"name":"2009"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2010\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[394.0,484.0,501.0,16.7,184.0],"type":"choropleth"}],"name":"2010"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2011\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[392.0,518.0,498.0,19.1,193.0],"type":"choropleth"}],"name":"2011"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2012\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[400.0,552.0,478.0,20.1,210.0],"type":"choropleth"}],"name":"2012"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2013\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[378.0,589.0,465.0,23.0,239.0],"type":"choropleth"}],"name":"2013"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2014\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[379.0,610.0,434.0,27.2,239.0],"type":"choropleth"}],"name":"2014"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2015\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[380.0,546.0,422.0,27.0,227.0],"type":"choropleth"}],"name":"2015"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2016\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[370.0,485.0,429.0,26.8,231.0],"type":"choropleth"}],"name":"2016"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2017\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[376.0,496.0,427.0,25.5,228.0],"type":"choropleth"}],"name":"2017"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2018\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[363.0,475.0,425.0,26.9,248.0],"type":"choropleth"}],"name":"2018"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2019\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[361.0,475.0,413.0,27.7,249.0],"type":"choropleth"}],"name":"2019"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2020\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[353.0,423.0,373.0,26.8,242.0],"type":"choropleth"}],"name":"2020"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2021\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[354.0,443.0,396.0,29.2,247.0],"type":"choropleth"}],"name":"2021"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2022\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[365.0,454.0,392.0,30.4,254.0],"type":"choropleth"}],"name":"2022"}]);
+                        }).then(function(){
+                            
+var gd = document.getElementById('5a5abe8e-e68f-47e3-b7f1-ab11afb6680e');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="final-tabset" class="level1">
+<h1>Final Tabset</h1>
+<p>Below, we place our results into a tabbed interface.</p>
+<hr>
+<p>title: “CO2 Emissions Report” author: “Arthur Ng’etich” format: html</p>
+<hr>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Table</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Chart</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Map</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="e4a3c4b2" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>show(table_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table id="itables_2d0639fc_324f_4744_9690_383bf275983e" class="display nowrap" data-quarto-disable-processing="true" style="table-layout:auto;width:auto;margin:auto;caption-side:bottom">
+<thead>
+    <tr style="text-align: right;">
+      
+      <th>country</th>
+      <th>2000</th>
+      <th>2022</th>
+      <th>Absolute Change</th>
+      <th>Relative Change</th>
+    </tr>
+  </thead><tbody><tr>
+<td style="vertical-align:middle; text-align:left">
+<a href="https://mwouts.github.io/itables/"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="64" viewbox="0 0 500 400" style="font-family: 'Droid Sans', sans-serif;">
+    <g style="fill:#d9d7fc">
+        <path d="M100,400H500V357H100Z"></path>
+        <path d="M100,300H400V257H100Z"></path>
+        <path d="M0,200H400V157H0Z"></path>
+        <path d="M100,100H500V57H100Z"></path>
+        <path d="M100,350H500V307H100Z"></path>
+        <path d="M100,250H400V207H100Z"></path>
+        <path d="M0,150H400V107H0Z"></path>
+        <path d="M100,50H500V7H100Z"></path>
+    </g>
+    <g style="fill:#1a1366;stroke:#1a1366;">
+   <rect x="100" y="7" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="5s" repeatcount="indefinite"></animate>
+      <animate attributename="x" values="100;100;500" dur="5s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="0" y="107" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="3.5s" repeatcount="indefinite"></animate>
+    <animate attributename="x" values="0;0;400" dur="3.5s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="100" y="207" width="300" height="43">
+    <animate attributename="width" values="0;300;0" dur="3s" repeatcount="indefinite"></animate>
+    <animate attributename="x" values="100;100;400" dur="3s" repeatcount="indefinite"></animate>
+  </rect>
+        <rect x="100" y="307" width="400" height="43">
+    <animate attributename="width" values="0;400;0" dur="4s" repeatcount="indefinite"></animate>
+      <animate attributename="x" values="100;100;500" dur="4s" repeatcount="indefinite"></animate>
+  </rect>
+        <g style="fill:transparent;stroke-width:8; stroke-linejoin:round" rx="5">
+            <g transform="translate(45 50) rotate(-45)">
+                <circle r="33" cx="0" cy="0"></circle>
+                <rect x="-8" y="32" width="16" height="30"></rect>
+            </g>
+
+            <g transform="translate(450 152)">
+                <polyline points="-15,-20 -35,-20 -35,40 25,40 25,20"></polyline>
+                <rect x="-15" y="-40" width="60" height="60"></rect>
+            </g>
+
+            <g transform="translate(50 352)">
+                <polygon points="-35,-5 0,-40 35,-5"></polygon>
+                <polygon points="-35,10 0,45 35,10"></polygon>
+            </g>
+
+            <g transform="translate(75 250)">
+                <polyline points="-30,30 -60,0 -30,-30"></polyline>
+                <polyline points="0,30 -30,0 0,-30"></polyline>
+            </g>
+
+            <g transform="translate(425 250) rotate(180)">
+                <polyline points="-30,30 -60,0 -30,-30"></polyline>
+                <polyline points="0,30 -30,0 0,-30"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
+</a>
+Loading ITables v2.2.4 from the internet...
+(need <a href="https://mwouts.github.io/itables/troubleshooting.html">help</a>?)</td>
+</tr></tbody>
+</table>
+<link href="https://www.unpkg.com/dt_for_itables@2.0.13/dt_bundle.css" rel="stylesheet">
+<script type="module">
+    import {DataTable, jQuery as $} from 'https://www.unpkg.com/dt_for_itables@2.0.13/dt_bundle.js';
+
+    document.querySelectorAll("#itables_2d0639fc_324f_4744_9690_383bf275983e:not(.dataTable)").forEach(table => {
+        if (!(table instanceof HTMLTableElement))
+            return;
+
+        // Define the table data
+        const data = [["Afghanistan", 0.723, 11.7, 10.977, "1518.0%"], ["Angola", 9.52, 43.6, 34.08, "358.0%"], ["Albania", 4.07, 5.98, 1.91, "47.0%"], ["Andorra", 0.53, 0.472, -0.058, "-11.0%"], ["UAE", 92.6, 199.0, 106.4, "115.0%"], ["Argentina", 140.0, 175.0, 35.0, "25.0%"], ["Armenia", 4.23, 7.51, 3.28, "78.0%"], ["Antigua and Barbuda", 0.34, 0.557, 0.217, "64.0%"], ["Australia", 289.0, 365.0, 76.0, "26.0%"], ["Austria", 91.3, 82.2, -9.1, "-10.0%"], ["Azerbaijan", 23.5, 39.8, 16.3, "69.0%"], ["Burundi", 0.268, 0.658, 0.39, "146.0%"], ["Belgium", 188.0, 197.0, 9.0, "5.0%"], ["Benin", 2.4, 9.48, 7.08, "295.0%"], ["Burkina Faso", 1.4, 6.94, 5.54, "396.0%"], ["Bangladesh", 25.4, 145.0, 119.6, "471.0%"], ["Bulgaria", 42.2, 39.5, -2.7, "-6.0%"], ["Bahrain", 11.0, 23.6, 12.6, "115.0%"], ["Bahamas", 2.13, 1.95, -0.18, "-8.0%"], ["Bosnia and Herzegovina", 15.3, 20.9, 5.6, "37.0%"], ["Belarus", 41.7, 60.3, 18.6, "45.0%"], ["Belize", 0.385, 0.614, 0.229, "59.0%"], ["Bolivia", 8.73, 24.3, 15.57, "178.0%"], ["Brazil", 347.0, 454.0, 107.0, "31.0%"], ["Barbados", 1.12, 1.27, 0.15, "13.0%"], ["Brunei", 3.1, 11.0, 7.9, "255.0%"], ["Bhutan", 0.38, 1.41, 1.03, "271.0%"], ["Botswana", 3.28, 13.4, 10.12, "309.0%"], ["Central African Republic", 0.276, 0.397, 0.121, "44.0%"], ["Canada", 577.0, 507.0, -70.0, "-12.0%"], ["Switzerland", 88.4, 102.0, 13.6, "15.0%"], ["Chile", 58.7, 89.1, 30.4, "52.0%"], ["China", 3240.0, 10500.0, 7260.0, "224.0%"], ["Cote d'Ivoire", 6.72, 16.8, 10.08, "150.0%"], ["Cameroon", 4.5, 11.4, 6.9, "153.0%"], ["Congo, Dem. Rep.", 0.922, 2.62, 1.698, "184.0%"], ["Congo, Rep.", 1.05, 4.02, 2.97, "283.0%"], ["Colombia", 54.3, 124.0, 69.7, "128.0%"], ["Comoros", 0.102, 0.24, 0.138, "135.0%"], ["Cape Verde", 0.232, 0.749, 0.517, "223.0%"], ["Costa Rica", 7.96, 12.3, 4.34, "55.0%"], ["Cuba", 25.9, 28.6, 2.7, "10.0%"], ["Cyprus", 7.56, 7.04, -0.52, "-7.0%"], ["Czech Republic", 120.0, 103.0, -17.0, "-14.0%"], ["Germany", 1080.0, 775.0, -305.0, "-28.0%"], ["Djibouti", 0.379, 0.823, 0.444, "117.0%"], ["Dominica", 0.101, 0.187, 0.086, "85.0%"], ["Denmark", 65.2, 45.2, -20.0, "-31.0%"], ["Dominican Republic", 12.2, 34.9, 22.7, "186.0%"], ["Algeria", 86.8, 174.0, 87.2, "100.0%"], ["Ecuador", 19.5, 48.6, 29.1, "149.0%"], ["Egypt", 136.0, 266.0, 130.0, "96.0%"], ["Eritrea", 0.631, 0.863, 0.232, "37.0%"], ["Spain", 330.0, 269.0, -61.0, "-18.0%"], ["Estonia", 20.2, 13.8, -6.4, "-32.0%"], ["Ethiopia", 3.73, 23.2, 19.47, "522.0%"], ["Finland", 78.6, 48.5, -30.1, "-38.0%"], ["Fiji", 0.856, 2.42, 1.564, "183.0%"], ["France", 514.0, 392.0, -122.0, "-24.0%"], ["Micronesia, Fed. Sts.", 0.13, 0.165, 0.035, "27.0%"], ["Gabon", 4.84, 6.6, 1.76, "36.0%"], ["UK", 743.0, 468.0, -275.0, "-37.0%"], ["Georgia", 6.08, 14.1, 8.02, "132.0%"], ["Ghana", 7.93, 25.9, 17.97, "227.0%"], ["Guinea", 1.33, 6.54, 5.21, "392.0%"], ["Gambia", 0.3, 0.792, 0.492, "164.0%"], ["Guinea-Bissau", 0.15, 0.417, 0.267, "178.0%"], ["Equatorial Guinea", 0.518, 7.96, 7.442, "1437.0%"], ["Greece", 104.0, 54.8, -49.2, "-47.0%"], ["Grenada", 0.199, 0.308, 0.109, "55.0%"], ["Guatemala", 23.3, 23.9, 0.6, "3.0%"], ["Guyana", 1.64, 2.55, 0.91, "55.0%"], ["Hong Kong, China", 83.9, 76.6, -7.3, "-9.0%"], ["Honduras", 3.93, 9.14, 5.21, "133.0%"], ["Croatia", 21.5, 24.0, 2.5, "12.0%"], ["Haiti", 1.33, 3.16, 1.83, "138.0%"], ["Hungary", 72.7, 63.9, -8.8, "-12.0%"], ["Indonesia", 235.0, 650.0, 415.0, "177.0%"], ["India", 901.0, 2660.0, 1759.0, "195.0%"], ["Ireland", 54.1, 43.1, -11.0, "-20.0%"], ["Iran", 292.0, 679.0, 387.0, "133.0%"], ["Iraq", 75.2, 256.0, 180.8, "240.0%"], ["Iceland", 2.95, 3.73, 0.78, "26.0%"], ["Israel", 68.3, 77.7, 9.4, "14.0%"], ["Italy", 566.0, 409.0, -157.0, "-28.0%"], ["Jamaica", 6.58, 6.88, 0.3, "5.0%"], ["Jordan", 17.3, 32.7, 15.4, "89.0%"], ["Japan", 1540.0, 1240.0, -300.0, "-19.0%"], ["Kazakhstan", 105.0, 187.0, 82.0, "78.0%"], ["Kenya", 12.2, 30.4, 18.2, "149.0%"], ["Kyrgyz Republic", 6.13, 18.6, 12.47, "203.0%"], ["Cambodia", 4.69, 42.8, 38.11, "813.0%"], ["Kiribati", 0.035, 0.085, 0.05, "143.0%"], ["St. Kitts and Nevis", 0.178, 0.222, 0.044, "25.0%"], ["South Korea", 480.0, 701.0, 221.0, "46.0%"], ["Kuwait", 32.8, 103.0, 70.2, "214.0%"], ["Lao", 2.37, 24.9, 22.53, "951.0%"], ["Lebanon", 17.4, 21.5, 4.1, "24.0%"], ["Liberia", 0.429, 1.88, 1.451, "338.0%"], ["Libya", 45.1, 60.2, 15.1, "33.0%"], ["St. Lucia", 0.355, 0.42, 0.065, "18.0%"], ["Liechtenstein", 0.216, 0.153, -0.063, "-29.0%"], ["Sri Lanka", 18.4, 38.4, 20.0, "109.0%"], ["Lesotho", 1.82, 3.18, 1.36, "75.0%"], ["Lithuania", 20.1, 19.8, -0.3, "-1.0%"], ["Luxembourg", 8.33, 8.22, -0.11, "-1.0%"], ["Latvia", 14.6, 14.0, -0.6, "-4.0%"], ["Morocco", 37.8, 74.9, 37.1, "98.0%"], ["Moldova", 3.62, 4.1, 0.48, "13.0%"], ["Madagascar", 2.61, 6.2, 3.59, "138.0%"], ["Maldives", 0.456, 1.73, 1.274, "279.0%"], ["Mexico", 440.0, 464.0, 24.0, "5.0%"], ["Marshall Islands", 0.106, 0.116, 0.01, "9.0%"], ["North Macedonia", 12.1, 7.34, -4.76, "-39.0%"], ["Mali", 0.855, 4.61, 3.755, "439.0%"], ["Malta", 4.58, 9.25, 4.67, "102.0%"], ["Myanmar", 9.8, 29.7, 19.9, "203.0%"], ["Montenegro", 1.57, 1.99, 0.42, "27.0%"], ["Mongolia", 7.01, 48.4, 41.39, "590.0%"], ["Mozambique", 4.54, 15.0, 10.46, "230.0%"], ["Mauritania", 1.14, 3.13, 1.99, "175.0%"], ["Mauritius", 4.95, 6.34, 1.39, "28.0%"], ["Malawi", 0.816, 2.83, 2.014, "247.0%"], ["Malaysia", 113.0, 254.0, 141.0, "125.0%"], ["Namibia", 1.57, 10.2, 8.63, "550.0%"], ["Niger", 0.711, 2.96, 2.249, "316.0%"], ["Nigeria", 47.2, 151.0, 103.8, "220.0%"], ["Nicaragua", 4.4, 6.56, 2.16, "49.0%"], ["Netherlands", 129.0, 154.0, 25.0, "19.0%"], ["Norway", 42.5, 47.4, 4.9, "12.0%"], ["Nepal", 2.67, 28.2, 25.53, "956.0%"], ["Nauru", 0.085, 0.065, -0.02, "-24.0%"], ["New Zealand", 31.9, 38.9, 7.0, "22.0%"], ["Oman", 19.3, 68.2, 48.9, "253.0%"], ["Pakistan", 109.0, 259.0, 150.0, "138.0%"], ["Panama", 4.82, 17.7, 12.88, "267.0%"], ["Peru", 32.2, 68.3, 36.1, "112.0%"], ["Philippines", 90.4, 186.0, 95.6, "106.0%"], ["Palau", 0.216, 0.257, 0.041, "19.0%"], ["Papua New Guinea", 2.51, 10.0, 7.49, "298.0%"], ["Poland", 299.0, 319.0, 20.0, "7.0%"], ["North Korea", 70.5, 34.5, -36.0, "-51.0%"], ["Portugal", 110.0, 47.3, -62.7, "-57.0%"], ["Paraguay", 5.39, 13.6, 8.21, "152.0%"], ["Palestine", 1.62, 3.85, 2.23, "138.0%"], ["Qatar", 15.5, 73.5, 58.0, "374.0%"], ["Romania", 89.0, 85.8, -3.2, "-4.0%"], ["Russia", 990.0, 1440.0, 450.0, "45.0%"], ["Rwanda", 0.682, 2.46, 1.778, "261.0%"], ["Saudi Arabia", 204.0, 671.0, 467.0, "229.0%"], ["Sudan", 4.88, 25.8, 20.92, "429.0%"], ["Senegal", 4.62, 17.6, 12.98, "281.0%"], ["Singapore", 125.0, 152.0, 27.0, "22.0%"], ["Solomon Islands", 0.16, 0.213, 0.053, "33.0%"], ["Sierra Leone", 0.389, 1.33, 0.941, "242.0%"], ["El Salvador", 8.25, 9.33, 1.08, "13.0%"], ["Somalia", 0.472, 0.896, 0.424, "90.0%"], ["Serbia", 37.6, 36.9, -0.7, "-2.0%"], ["South Sudan", 0.455, 2.03, 1.575, "346.0%"], ["Sao Tome and Principe", 0.048, 0.146, 0.098, "204.0%"], ["Suriname", 2.23, 2.1, -0.13, "-6.0%"], ["Slovak Republic", 46.0, 41.6, -4.4, "-10.0%"], ["Slovenia", 19.0, 17.9, -1.1, "-6.0%"], ["Sweden", 85.3, 62.8, -22.5, "-26.0%"], ["Eswatini", 1.22, 1.39, 0.17, "14.0%"], ["Seychelles", 0.565, 0.79, 0.225, "40.0%"], ["Syria", 50.2, 41.0, -9.2, "-18.0%"], ["Chad", 0.482, 1.27, 0.788, "163.0%"], ["Togo", 0.96, 8.02, 7.06, "735.0%"], ["Thailand", 153.0, 281.0, 128.0, "84.0%"], ["Tajikistan", 5.38, 14.6, 9.22, "171.0%"], ["Turkmenistan", 37.9, 99.9, 62.0, "164.0%"], ["Timor-Leste", 0.146, 0.618, 0.472, "323.0%"], ["Tonga", 0.1, 0.152, 0.052, "52.0%"], ["Trinidad and Tobago", 10.1, 27.1, 17.0, "168.0%"], ["Tunisia", 14.1, 27.9, 13.8, "98.0%"], ["Turkey", 251.0, 422.0, 171.0, "68.0%"], ["Tuvalu", 0.008, 0.012, 0.004, "50.0%"], ["Taiwan", 276.0, 299.0, 23.0, "8.0%"], ["Tanzania", 4.91, 20.3, 15.39, "313.0%"], ["Uganda", 2.73, 8.63, 5.9, "216.0%"], ["Ukraine", 220.0, 173.0, -47.0, "-21.0%"], ["Uruguay", 7.91, 11.0, 3.09, "39.0%"], ["USA", 6210.0, 5560.0, -650.0, "-10.0%"], ["Uzbekistan", 122.0, 97.1, -24.9, "-20.0%"], ["St. Vincent and the Grenadines", 0.155, 0.213, 0.058, "37.0%"], ["Venezuela", 76.3, 19.0, -57.3, "-75.0%"], ["Vietnam", 36.9, 213.0, 176.1, "477.0%"], ["Vanuatu", 0.088, 0.187, 0.099, "113.0%"], ["Samoa", 0.151, 0.318, 0.167, "111.0%"], ["Yemen", 15.5, 13.3, -2.2, "-14.0%"], ["South Africa", 273.0, 310.0, 37.0, "14.0%"], ["Zambia", 3.88, 8.49, 4.61, "119.0%"], ["Zimbabwe", 12.2, 13.1, 0.9, "7.0%"]];
+
+        // Define the dt_args
+        let dt_args = {"layout": {"topStart": "pageLength", "topEnd": "search", "bottomStart": "info", "bottomEnd": "paging"}, "order": [], "warn_on_selected_rows_not_rendered": true};
+        dt_args["data"] = data;
+
+        
+        new DataTable(table, dt_args);
+    });
+</script>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="6fd03e73" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig_chart.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="6d68fbe2-f066-4d53-a9bc-3865bf5873c7" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6d68fbe2-f066-4d53-a9bc-3865bf5873c7")) {                    Plotly.newPlot(                        "6d68fbe2-f066-4d53-a9bc-3865bf5873c7",                        [{"hovertemplate":"Country=Australia\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Australia","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Australia","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[242.0,243.0,245.0,246.0,254.0,260.0,266.0,274.0,293.0,294.0,289.0,297.0,316.0,333.0,343.0,342.0,354.0,366.0,362.0,393.0,394.0,392.0,400.0,378.0,379.0,380.0,370.0,376.0,363.0,361.0,353.0,354.0,365.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Brazil\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Brazil","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Brazil","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[244.0,251.0,253.0,261.0,274.0,296.0,320.0,340.0,347.0,331.0,347.0,340.0,329.0,322.0,334.0,348.0,357.0,392.0,442.0,412.0,484.0,518.0,552.0,589.0,610.0,546.0,485.0,496.0,475.0,475.0,423.0,443.0,454.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=France\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"France","line":{"color":"#00cc96","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"France","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[490.0,502.0,542.0,501.0,489.0,498.0,499.0,485.0,505.0,507.0,514.0,514.0,508.0,518.0,539.0,548.0,548.0,548.0,542.0,502.0,501.0,498.0,478.0,465.0,434.0,422.0,429.0,427.0,425.0,413.0,373.0,396.0,392.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Kenya\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Kenya","line":{"color":"#ab63fa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Kenya","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[8.01,7.19,8.31,8.65,8.98,10.2,9.28,9.29,12.9,11.4,12.2,12.2,10.3,9.3,9.96,11.4,13.0,14.0,14.8,16.9,16.7,19.1,20.1,23.0,27.2,27.0,26.8,25.5,26.9,27.7,26.8,29.2,30.4],"yaxis":"y","type":"scatter"},{"hovertemplate":"Country=Malaysia\u003cbr\u003eYear=%{x}\u003cbr\u003eEmissions (metric tons)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Malaysia","line":{"color":"#FFA15A","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Malaysia","orientation":"v","showlegend":true,"x":[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],"xaxis":"x","y":[65.2,72.0,80.5,86.1,87.5,99.0,101.0,112.0,79.0,94.2,113.0,119.0,125.0,127.0,134.0,142.0,141.0,151.0,168.0,158.0,184.0,193.0,210.0,239.0,239.0,227.0,231.0,228.0,248.0,249.0,242.0,247.0,254.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Year"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Emissions (metric tons)"}},"legend":{"title":{"text":"Country"},"tracegroupgap":0},"title":{"text":"CO2 Emissions (1990-2022) for Selected Countries"}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('6d68fbe2-f066-4d53-a9bc-3865bf5873c7');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="c07921d6" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig_map.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>                            <div id="8ff958ba-2c8e-4141-8a28-bb78e0dd41f5" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("8ff958ba-2c8e-4141-8a28-bb78e0dd41f5")) {                    Plotly.newPlot(                        "8ff958ba-2c8e-4141-8a28-bb78e0dd41f5",                        [{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1990\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[242.0,244.0,490.0,8.01,65.2],"type":"choropleth"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"geo":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"center":{}},"coloraxis":{"colorbar":{"title":{"text":"emissions"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"title":{"text":"Global CO2 Emissions (1990-2022)"},"updatemenus":[{"buttons":[{"args":[null,{"frame":{"duration":500,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":500,"easing":"linear"}}],"label":"&#9654;","method":"animate"},{"args":[[null],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"&#9724;","method":"animate"}],"direction":"left","pad":{"r":10,"t":70},"showactive":false,"type":"buttons","x":0.1,"xanchor":"right","y":0,"yanchor":"top"}],"sliders":[{"active":0,"currentvalue":{"prefix":"year="},"len":0.9,"pad":{"b":10,"t":60},"steps":[{"args":[["1990"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1990","method":"animate"},{"args":[["1991"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1991","method":"animate"},{"args":[["1992"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1992","method":"animate"},{"args":[["1993"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1993","method":"animate"},{"args":[["1994"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1994","method":"animate"},{"args":[["1995"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1995","method":"animate"},{"args":[["1996"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1996","method":"animate"},{"args":[["1997"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1997","method":"animate"},{"args":[["1998"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1998","method":"animate"},{"args":[["1999"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"1999","method":"animate"},{"args":[["2000"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2000","method":"animate"},{"args":[["2001"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2001","method":"animate"},{"args":[["2002"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2002","method":"animate"},{"args":[["2003"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2003","method":"animate"},{"args":[["2004"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2004","method":"animate"},{"args":[["2005"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2005","method":"animate"},{"args":[["2006"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2006","method":"animate"},{"args":[["2007"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2007","method":"animate"},{"args":[["2008"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2008","method":"animate"},{"args":[["2009"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2009","method":"animate"},{"args":[["2010"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2010","method":"animate"},{"args":[["2011"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2011","method":"animate"},{"args":[["2012"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2012","method":"animate"},{"args":[["2013"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2013","method":"animate"},{"args":[["2014"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2014","method":"animate"},{"args":[["2015"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2015","method":"animate"},{"args":[["2016"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2016","method":"animate"},{"args":[["2017"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2017","method":"animate"},{"args":[["2018"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2018","method":"animate"},{"args":[["2019"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2019","method":"animate"},{"args":[["2020"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2020","method":"animate"},{"args":[["2021"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2021","method":"animate"},{"args":[["2022"],{"frame":{"duration":0,"redraw":true},"mode":"immediate","fromcurrent":true,"transition":{"duration":0,"easing":"linear"}}],"label":"2022","method":"animate"}],"x":0.1,"xanchor":"left","y":0,"yanchor":"top"}]},                        {"responsive": true}                    ).then(function(){
+                            Plotly.addFrames('8ff958ba-2c8e-4141-8a28-bb78e0dd41f5', [{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1990\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[242.0,244.0,490.0,8.01,65.2],"type":"choropleth"}],"name":"1990"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1991\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[243.0,251.0,502.0,7.19,72.0],"type":"choropleth"}],"name":"1991"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1992\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[245.0,253.0,542.0,8.31,80.5],"type":"choropleth"}],"name":"1992"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1993\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[246.0,261.0,501.0,8.65,86.1],"type":"choropleth"}],"name":"1993"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1994\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[254.0,274.0,489.0,8.98,87.5],"type":"choropleth"}],"name":"1994"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1995\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[260.0,296.0,498.0,10.2,99.0],"type":"choropleth"}],"name":"1995"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1996\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[266.0,320.0,499.0,9.28,101.0],"type":"choropleth"}],"name":"1996"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1997\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[274.0,340.0,485.0,9.29,112.0],"type":"choropleth"}],"name":"1997"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1998\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[293.0,347.0,505.0,12.9,79.0],"type":"choropleth"}],"name":"1998"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=1999\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[294.0,331.0,507.0,11.4,94.2],"type":"choropleth"}],"name":"1999"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2000\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[289.0,347.0,514.0,12.2,113.0],"type":"choropleth"}],"name":"2000"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2001\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[297.0,340.0,514.0,12.2,119.0],"type":"choropleth"}],"name":"2001"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2002\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[316.0,329.0,508.0,10.3,125.0],"type":"choropleth"}],"name":"2002"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2003\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[333.0,322.0,518.0,9.3,127.0],"type":"choropleth"}],"name":"2003"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2004\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[343.0,334.0,539.0,9.96,134.0],"type":"choropleth"}],"name":"2004"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2005\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[342.0,348.0,548.0,11.4,142.0],"type":"choropleth"}],"name":"2005"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2006\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[354.0,357.0,548.0,13.0,141.0],"type":"choropleth"}],"name":"2006"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2007\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[366.0,392.0,548.0,14.0,151.0],"type":"choropleth"}],"name":"2007"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2008\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[362.0,442.0,542.0,14.8,168.0],"type":"choropleth"}],"name":"2008"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2009\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[393.0,412.0,502.0,16.9,158.0],"type":"choropleth"}],"name":"2009"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2010\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[394.0,484.0,501.0,16.7,184.0],"type":"choropleth"}],"name":"2010"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2011\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[392.0,518.0,498.0,19.1,193.0],"type":"choropleth"}],"name":"2011"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2012\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[400.0,552.0,478.0,20.1,210.0],"type":"choropleth"}],"name":"2012"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2013\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[378.0,589.0,465.0,23.0,239.0],"type":"choropleth"}],"name":"2013"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2014\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[379.0,610.0,434.0,27.2,239.0],"type":"choropleth"}],"name":"2014"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2015\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[380.0,546.0,422.0,27.0,227.0],"type":"choropleth"}],"name":"2015"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2016\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[370.0,485.0,429.0,26.8,231.0],"type":"choropleth"}],"name":"2016"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2017\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[376.0,496.0,427.0,25.5,228.0],"type":"choropleth"}],"name":"2017"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2018\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[363.0,475.0,425.0,26.9,248.0],"type":"choropleth"}],"name":"2018"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2019\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[361.0,475.0,413.0,27.7,249.0],"type":"choropleth"}],"name":"2019"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2020\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[353.0,423.0,373.0,26.8,242.0],"type":"choropleth"}],"name":"2020"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2021\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[354.0,443.0,396.0,29.2,247.0],"type":"choropleth"}],"name":"2021"},{"data":[{"coloraxis":"coloraxis","geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eyear=2022\u003cbr\u003ecountry_code=%{location}\u003cbr\u003eemissions=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Australia","Brazil","France","Kenya","Malaysia"],"locations":["AUS","BRA","FRA","KEN","MYS"],"name":"","z":[365.0,454.0,392.0,30.4,254.0],"type":"choropleth"}],"name":"2022"}]);
+                        }).then(function(){
+                            
+var gd = document.getElementById('8ff958ba-2c8e-4141-8a28-bb78e0dd41f5');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="deploying-to-github-pages" class="level1">
+<h1>Deploying to GitHub Pages</h1>
+<p>As a final step, you should follow the steps outlined in the prework to deplioy your report to GitHub Pages. You will be asked to share a link to your report in the course portal</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

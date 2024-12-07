@@ -43,7 +43,7 @@ Load in your dataset from gapminder below. View it in your data viewer to get an
 
 ```{python}
 # Load the data
-emissions = pd.read_csv("DATA PATH HERE")
+emissions = pd.read_csv("data/co2_cons.csv")
 ```
 
 # Initial Cleaning
@@ -84,13 +84,13 @@ Our goal is to create a table showing emissions for a few selected years and cal
 
 ```{python}
 # Subset the data to include `country`, `2000`, and `2022` columns only.
-table_df = 
+table_df = emissions[["country", "2000", "2022"]].copy()
 
 # Calculate absolute change as the difference between 2022 and 2000
-table_df["Absolute Change"] = 
+table_df["Absolute Change"] = table_df["2022"] - table_df["2000"]
 
 # Calculate relative change as the absolute change divided by the 2000 emissions, then multiplied by 100
-table_df["Relative Change"] = 
+table_df["Relative Change"] = (table_df["Absolute Change"] / table_df["2000"]) * 100
 
 # Round to 0 decimal places, and add a % sign to the relative change
 table_df["Relative Change"] = table_df["Relative Change"].round(0).astype(str) + "%"
@@ -113,23 +113,40 @@ Our goal is to create a line chart from 1990 to 2022 for a few selected countrie
 
 ```{python}
 # Melt the dataset. Your id_vars should be "country", your var_name should be "year" and your value_name should be "emissions".
-emissions_long = 
+emissions_long = emissions.melt(id_vars="country", var_name="year", value_name="emissions")
 
 # Convert year to numeric using pd.to_numeric
-emissions_long["year"] = 
+emissions_long["year"] = pd.to_numeric(emissions_long["year"], errors="coerce")
 
 # Convert emissions to numeric using pd.to_numeric
-emissions_long["emissions"] = 
+emissions_long["emissions"] = pd.to_numeric(
+    emissions_long["emissions"], errors="coerce"
+)
 
 # Query for years between 1990 and 2022 (that is 1990, 1991, ..., 2022)
-emissions_long_1990_2022 = 
+emissions_long_1990_2022 = emissions_long.query("1990 <= year <= 2022")
 
 # Query for 5 countries (adjust these to any countries you like)
-countries_of_interest = 
+countries_of_interest = ["Kenya", "Malaysia", "France", "Brazil", "Australia"]
+emissions_long_1990_2022 = emissions_long_1990_2022[
+    emissions_long_1990_2022["country"].isin(countries_of_interest)
+]
 
 # Create line chart. Year should be on the x-axis, emissions on the y-axis, and color should be by country.
-fig_chart = 
+fig_chart = px.line(
+    emissions_long_1990_2022,
+    x="year",
+    y="emissions",
+    color="country",
+    title="CO2 Emissions (1990-2022) for Selected Countries",
+    labels={
+        "year": "Year",
+        "emissions": "Emissions (metric tons)",
+        "country": "Country",
+    },
+)
 
+fig_chart.show()
 ```
 
 
@@ -168,7 +185,7 @@ Below, we place our results into a tabbed interface.
 
 ---
 title: "CO2 Emissions Report"
-author: "YOUR NAME HERE"
+author: "Arthur Ng'etich"
 format: html
 ---
 
