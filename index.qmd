@@ -1,6 +1,19 @@
 ---
 title: "Workshop Exercise: Emissions Data - Table, Map, and Chart"
-format: html
+author: "Arthur Saitabau"
+format: 
+  html:
+    code-fold: true   
+  pdf:
+    code-fold: true   
+fontsize: 12pt
+geometry: a4paper
+toc: true             
+toc-depth: 2          
+number-sections: true 
+header-includes:
+  - \usepackage{setspace}
+  - \doublespacing
 ---
 
 # Introduction
