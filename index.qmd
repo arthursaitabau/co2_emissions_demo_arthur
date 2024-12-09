@@ -1,19 +1,7 @@
 ---
 title: "Workshop Exercise: Emissions Data - Table, Map, and Chart"
 author: "Arthur Saitabau"
-format: 
-  html:
-    code-fold: true   
-  pdf:
-    code-fold: true   
-fontsize: 12pt
-geometry: a4paper
-toc: true             
-toc-depth: 2          
-number-sections: true 
-header-includes:
-  - \usepackage{setspace}
-  - \doublespacing
+format: html
 ---
 
 # Introduction
@@ -126,14 +114,16 @@ Our goal is to create a line chart from 1990 to 2022 for a few selected countrie
 
 ```{python}
 # Melt the dataset. Your id_vars should be "country", your var_name should be "year" and your value_name should be "emissions".
-emissions_long = emissions.melt(id_vars="country", var_name="year", value_name="emissions")
+emissions_long = emissions.melt(
+    id_vars="country", var_name="year", value_name="emissions"
+)
 
 # Convert year to numeric using pd.to_numeric
 emissions_long["year"] = pd.to_numeric(emissions_long["year"], errors="coerce")
 
-# Convert emissions to numeric using pd.to_numeric
+# Convert emissions to numeric using pd.to_numeric. Here, we also convert dashes to the minus sign
 emissions_long["emissions"] = pd.to_numeric(
-    emissions_long["emissions"], errors="coerce"
+    emissions_long["emissions"].astype(str).str.replace("−", "-")
 )
 
 # Query for years between 1990 and 2022 (that is 1990, 1991, ..., 2022)
@@ -151,7 +141,7 @@ fig_chart = px.line(
     x="year",
     y="emissions",
     color="country",
-    title="CO2 Emissions (1990-2022) for Selected Countries",
+    title="CO₂ Emissions (1990-2022) for Selected Countries",
     labels={
         "year": "Year",
         "emissions": "Emissions (metric tons)",
@@ -168,6 +158,7 @@ fig_chart.show()
 This part is done for you.
 
 **Goal:** Create a choropleth map showing global emissions from 1990 to 2022.  
+
 This will be animated by year.
 
 1. Ensure each country has a 3-letter ISO code. We'll use `country_converter` for that.
@@ -185,7 +176,7 @@ fig_map = px.choropleth(
     color="emissions",
     hover_name="country",
     animation_frame="year",
-    title="Global CO2 Emissions (1990-2022)",
+    title="Global CO₂ Emissions (1990-2022)",
 )
 
 fig_map.show()
