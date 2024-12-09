@@ -37,14 +37,13 @@ fig_chart = px.line(
 )
 
 # Define fig_map
-emissions_long_1990_2022["country_code"] = coco.convert(
-    emissions_long_1990_2022["country"], to="ISO3"
-)
+emissions_long["country_code"] = coco.convert(emissions_long["country"], to="ISO3")
+
 fig_map = px.choropleth(
-    emissions_long_1990_2022,
+    emissions_long,
     locations="country_code",
     color="emissions",
     hover_name="country",
     animation_frame="year",
-    title="Global CO2 Emissions (1990-2022)",
+    title="Global CO₂ Emissions (1990-2022)",
 )

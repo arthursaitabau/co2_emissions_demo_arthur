@@ -74,7 +74,6 @@ And check that it worked:
 emissions.query("country == 'China'")[["country",  "2020", "2021", "2022"]]
 ```
 
-
 # Table Section
 
 Our goal is to create a table showing emissions for a few selected years and calculate absolute and relative changes.
@@ -127,17 +126,17 @@ emissions_long["emissions"] = pd.to_numeric(
 )
 
 # Query for years between 1990 and 2022 (that is 1990, 1991, ..., 2022)
-emissions_long_1990_2022 = emissions_long.query("1990 <= year <= 2022")
+emissions_long = emissions_long.query("1990 <= year <= 2022")
 
 # Query for 5 countries (adjust these to any countries you like)
 countries_of_interest = ["Kenya", "Malaysia", "France", "Brazil", "Australia"]
-emissions_long_1990_2022 = emissions_long_1990_2022[
-    emissions_long_1990_2022["country"].isin(countries_of_interest)
+emissions_long_subset = emissions_long[
+    emissions_long["country"].isin(countries_of_interest)
 ]
 
-# Create line chart. Year should be on the x-axis, emissions on the y-axis, and color should be by country.
+# Create line chart. Year should be on the x-axis, emissions on the y-axis, and color should be by country. 
 fig_chart = px.line(
-    emissions_long_1990_2022,
+    emissions_long_subset,
     x="year",
     y="emissions",
     color="country",
@@ -166,12 +165,12 @@ This will be animated by year.
 
 ```{python}
 # Convert country names to ISO3 codes
-emissions_long_1990_2022["country_code"] = coco.convert(
-    emissions_long_1990_2022["country"], to="ISO3"
+emissions_long["country_code"] = coco.convert(
+    emissions_long["country"], to="ISO3"
 )
 
 fig_map = px.choropleth(
-    emissions_long_1990_2022,
+    emissions_long,
     locations="country_code",
     color="emissions",
     hover_name="country",
@@ -215,6 +214,6 @@ fig_map.show()
 
 :::
 
-# Deploying to GitHub Pages
+# Deploying to GitHub Pages     
 
 As a final step, you should follow the steps outlined in the prework to deplioy your report to GitHub Pages. You will be asked to share a link to your report in the course portal
