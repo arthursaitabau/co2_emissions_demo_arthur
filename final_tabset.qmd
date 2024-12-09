@@ -1,0 +1,41 @@
+---
+title: "CO₂ Emissions Report"
+subtitle: Historical Trends in CO₂ Emissions (Million Tonnes)
+author: "Arthur Ng'etich"
+format: 
+    html:
+        embed-resources: true
+execute: 
+  echo: false
+---
+
+```{python}
+from itables import show
+```
+
+```{python}
+# Import shared code
+from index import table_df, fig_chart, fig_map
+```
+
+::: {.panel-tabset}
+
+## Table
+
+```{python}
+show(table_df)
+```
+
+## Chart
+
+```{python}
+fig_chart.show()
+```
+
+## Map
+
+```{python}
+fig_map.show()
+```
+
+:::
