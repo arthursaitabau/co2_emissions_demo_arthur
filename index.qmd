@@ -1,7 +1,12 @@
 ---
 title: "Workshop Exercise: Emissions Data - Table, Map, and Chart"
 author: "Arthur Saitabau"
-format: html
+format: 
+    html:
+        embed-resources: true
+execute: 
+  echo: false
+  warning: false
 ---
 
 # Introduction
